@@ -1509,6 +1509,60 @@ class Cursor(Structure):
         """
         return conf.lib.clang_CXXRecord_isAbstract(self)
 
+    def record_defaulted_copy_constructor_is_deleted(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that has its default copy constructor deleted.
+        """
+        return conf.lib.clang_CXXRecord_defaultedCopyConstructorIsDeleted(self)
+
+    def record_defaulted_move_constructor_is_deleted(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that has its default move constructor deleted.
+        """
+        return conf.lib.clang_CXXRecord_defaultedMoveConstructorIsDeleted(self)
+
+    def record_defaulted_destructor_is_deleted(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that has its default destructor deleted.
+        """
+        return conf.lib.clang_CXXRecord_defaultedDestructorIsDeleted(self)
+
+    def record_needs_implicit_default_constructor(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that needs an implicit default constructor declared for it.
+        """
+        return conf.lib.clang_CXXRecord_needsImplicitDefaultConstructor(self)
+
+    def record_needs_implicit_copy_constructor(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that needs an implicit copy constructor declared for it.
+        """
+        return conf.lib.clang_CXXRecord_needsImplicitCopyConstructor(self)
+
+    def record_needs_implicit_copy_assignment(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that needs an implicit copy assignment declared for it.
+        """
+        return conf.lib.clang_CXXRecord_needsImplicitCopyAssignment(self)
+
+    def record_needs_implicit_move_constructor(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that needs an implicit move constructor declared for it.
+        """
+        return conf.lib.clang_CXXRecord_needsImplicitMoveConstructor(self)
+
+    def record_needs_implicit_move_assignment(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that needs an implicit move assignment declared for it.
+        """
+        return conf.lib.clang_CXXRecord_needsImplicitMoveAssignment(self)
+
+    def record_needs_implicit_destructor(self):
+        """Returns True if the cursor refers to a C++ record declaration
+        that needs an implicit destructor declared for it.
+        """
+        return conf.lib.clang_CXXRecord_needsImplicitDestructor(self)
+
     def is_scoped_enum(self):
         """Returns True if the cursor refers to a scoped enum declaration.
         """

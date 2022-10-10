@@ -920,6 +920,24 @@ static void PrintCursor(CXCursor Cursor, const char *CommentSchemaFile) {
       printf(" (@optional)");
     if (clang_isInvalidDeclaration(Cursor))
       printf(" (invalid)");
+    if (clang_CXXRecord_defaultedCopyConstructorIsDeleted(Cursor))
+      printf(" (default-deleted cctor)");
+    if (clang_CXXRecord_defaultedMoveConstructorIsDeleted(Cursor))
+      printf(" (default-deleted mctor)");
+    if (clang_CXXRecord_defaultedDestructorIsDeleted(Cursor))
+      printf(" (default-deleted dtor)");
+    if (clang_CXXRecord_needsImplicitDefaultConstructor(Cursor))
+      printf(" (needs ctor)");
+    if (clang_CXXRecord_needsImplicitCopyConstructor(Cursor))
+      printf(" (needs cctor)");
+    if (clang_CXXRecord_needsImplicitMoveConstructor(Cursor))
+      printf(" (needs mctor)");
+    if (clang_CXXRecord_needsImplicitCopyAssignment(Cursor))
+      printf(" (needs cassign)");
+    if (clang_CXXRecord_needsImplicitMoveAssignment(Cursor))
+      printf(" (needs massign)");
+    if (clang_CXXRecord_needsImplicitDestructor(Cursor))
+      printf(" (needs dtor)");
 
     switch (clang_getCursorExceptionSpecificationType(Cursor))
     {

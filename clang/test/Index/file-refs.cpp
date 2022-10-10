@@ -58,7 +58,7 @@ void f() {
 
 // RUN:  -file-refs-at=%s:2:9 \
 // CHECK-NEXT: ClassDecl=C:2:9 (Definition)
-// CHECK-NEXT: ClassDecl=C:2:9 (Definition) =[2:9 - 2:10]
+// CHECK-NEXT: ClassDecl=C:2:9 (Definition) (needs cassign) (needs massign) =[2:9 - 2:10]
 // CHECK-NEXT: CXXConstructor=C:4:5 (Definition) (default constructor) =[4:5 - 4:6]
 // CHECK-NEXT: TypeRef=class NS::C:2:9 =[9:10 - 9:11]
 // CHECK-NEXT: TypeRef=class NS::C:2:9 =[10:3 - 10:4]
@@ -68,7 +68,7 @@ void f() {
 
 // RUN:  -file-refs-at=%s:16:18 \
 // CHECK-NEXT: CallExpr=C:4:5
-// CHECK-NEXT: ClassDecl=C:2:9 (Definition) =[2:9 - 2:10]
+// CHECK-NEXT: ClassDecl=C:2:9 (Definition) (needs cassign) (needs massign) =[2:9 - 2:10]
 // CHECK-NEXT: CXXConstructor=C:4:5 (Definition) (default constructor) =[4:5 - 4:6]
 // CHECK-NEXT: TypeRef=class NS::C:2:9 =[9:10 - 9:11]
 // CHECK-NEXT: TypeRef=class NS::C:2:9 =[10:3 - 10:4]

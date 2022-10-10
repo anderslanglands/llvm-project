@@ -2181,8 +2181,8 @@ public:
   void VisitOMPMaskedTaskLoopDirective(const OMPMaskedTaskLoopDirective *D);
   void
   VisitOMPMasterTaskLoopSimdDirective(const OMPMasterTaskLoopSimdDirective *D);
-  void VisitOMPMaskedTaskLoopSimdDirective(
-      const OMPMaskedTaskLoopSimdDirective *D);
+  void
+  VisitOMPMaskedTaskLoopSimdDirective(const OMPMaskedTaskLoopSimdDirective *D);
   void VisitOMPParallelMasterTaskLoopDirective(
       const OMPParallelMasterTaskLoopDirective *D);
   void VisitOMPParallelMaskedTaskLoopDirective(
@@ -4767,7 +4767,7 @@ typedef struct _CXChildVisitResult {
   int reserved;
   enum CXChildVisitResult (*invoke)(struct _CXChildVisitResult *, CXCursor,
                                     CXCursor);
-} * CXCursorVisitorBlock;
+} *CXCursorVisitorBlock;
 
 static enum CXChildVisitResult visitWithBlock(CXCursor cursor, CXCursor parent,
                                               CXClientData client_data) {
@@ -8901,6 +8901,109 @@ unsigned clang_CXXRecord_isAbstract(CXCursor C) {
   if (RD)
     RD = RD->getDefinition();
   return (RD && RD->isAbstract()) ? 1 : 0;
+}
+
+unsigned clang_CXXRecord_defaultedCopyConstructorIsDeleted(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD && !RD->isUnion())
+    RD = RD->getDefinition();
+  return (RD && RD->defaultedCopyConstructorIsDeleted()) ? 1 : 0;
+}
+
+unsigned clang_CXXRecord_defaultedMoveConstructorIsDeleted(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->defaultedMoveConstructorIsDeleted()) ? 1
+                                                                           : 0;
+}
+
+unsigned clang_CXXRecord_defaultedDestructorIsDeleted(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->defaultedDestructorIsDeleted()) ? 1 : 0;
+}
+
+unsigned clang_CXXRecord_needsImplicitDefaultConstructor(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->needsImplicitDefaultConstructor()) ? 1
+                                                                         : 0;
+}
+
+unsigned clang_CXXRecord_needsImplicitCopyConstructor(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->needsImplicitDefaultConstructor()) ? 1
+                                                                         : 0;
+}
+
+unsigned clang_CXXRecord_needsImplicitCopyAssignment(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->needsImplicitCopyAssignment()) ? 1 : 0;
+}
+
+unsigned clang_CXXRecord_needsImplicitMoveConstructor(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->needsImplicitDefaultConstructor()) ? 1
+                                                                         : 0;
+}
+
+unsigned clang_CXXRecord_needsImplicitMoveAssignment(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->needsImplicitMoveAssignment()) ? 1 : 0;
+}
+
+unsigned clang_CXXRecord_needsImplicitDestructor(CXCursor C) {
+  if (!clang_isDeclaration(C.kind))
+    return 0;
+
+  const auto *D = cxcursor::getCursorDecl(C);
+  const auto *RD = dyn_cast_if_present<CXXRecordDecl>(D);
+  if (RD)
+    RD = RD->getDefinition();
+  return (RD && !RD->isUnion() && RD->needsImplicitDestructor()) ? 1 : 0;
 }
 
 unsigned clang_EnumDecl_isScoped(CXCursor C) {

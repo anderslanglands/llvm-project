@@ -119,7 +119,7 @@ void casts(int *ip) {
 
 // RUN: c-index-test -test-load-source all -fno-delayed-template-parsing -frtti %s | FileCheck %s
 // CHECK: load-stmts.cpp:1:13: TypedefDecl=T:1:13 (Definition) Extent=[1:1 - 1:14]
-// CHECK: load-stmts.cpp:2:8: StructDecl=X:2:8 (Definition) Extent=[2:1 - 2:23]
+// CHECK: load-stmts.cpp:2:8: StructDecl=X:2:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) Extent=[2:1 - 2:23]
 // CHECK: load-stmts.cpp:2:16: FieldDecl=a:2:16 (Definition) Extent=[2:12 - 2:17]
 // CHECK: load-stmts.cpp:2:19: FieldDecl=b:2:19 (Definition) Extent=[2:12 - 2:20]
 // CHECK: load-stmts.cpp:3:6: FunctionDecl=f:3:6 (Definition) Extent=[3:1 - 11:2]
@@ -151,15 +151,15 @@ void casts(int *ip) {
 // CHECK: load-stmts.cpp:8:18: DeclRefExpr=x:3:12 Extent=[8:18 - 8:19]
 // CHECK: load-stmts.cpp:8:13: DeclRefExpr=z4:8:13 Extent=[8:13 - 8:15]
 // CHECK: load-stmts.cpp:9:8: IntegerLiteral= Extent=[9:8 - 9:10]
-// CHECK: load-stmts.cpp:14:7: ClassDecl=A:14:7 (Definition) Extent=[14:1 - 16:2]
+// CHECK: load-stmts.cpp:14:7: ClassDecl=A:14:7 (Definition) (needs ctor) (needs cctor) (needs mctor) Extent=[14:1 - 16:2]
 // CHECK: load-stmts.cpp:15:8: CXXMethod=doA:15:8 Extent=[15:3 - 15:13]
-// CHECK: load-stmts.cpp:18:7: ClassDecl=B:18:7 (Definition) Extent=[18:1 - 20:2]
+// CHECK: load-stmts.cpp:18:7: ClassDecl=B:18:7 (Definition) (needs ctor) (needs cctor) (needs mctor) Extent=[18:1 - 20:2]
 // CHECK: load-stmts.cpp:19:8: CXXMethod=doB:19:8 Extent=[19:3 - 19:13]
-// CHECK: load-stmts.cpp:22:7: ClassDecl=C:22:7 (Definition) Extent=[22:1 - 24:2]
+// CHECK: load-stmts.cpp:22:7: ClassDecl=C:22:7 (Definition) (needs ctor) (needs cctor) (needs mctor) Extent=[22:1 - 24:2]
 // CHECK: load-stmts.cpp:22:18: C++ base class specifier=A:14:7 [access=public isVirtual=false]
 // CHECK: load-stmts.cpp:22:29: C++ base class specifier=B:18:7 [access=private isVirtual=false]
 // CHECK: load-stmts.cpp:23:8: CXXMethod=doC:23:8 Extent=[23:3 - 23:13]
-// CHECK: load-stmts.cpp:26:7: ClassDecl=D:26:7 (Definition) Extent=[26:1 - 26:49]
+// CHECK: load-stmts.cpp:26:7: ClassDecl=D:26:7 (Definition) (needs ctor) (needs cctor) (needs mctor) Extent=[26:1 - 26:49]
 // CHECK: load-stmts.cpp:26:26: C++ base class specifier=C:22:7 [access=public isVirtual=true]
 // CHECK: load-stmts.cpp:26:45: C++ base class specifier=A:14:7 [access=private isVirtual=true]
 // CHECK: load-stmts.cpp:33:7: VarDecl=typeid_marker:33:7 (Definition)

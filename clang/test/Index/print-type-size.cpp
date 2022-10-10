@@ -13,8 +13,8 @@ void v;
 void *v1;
 
 // offsetof
-// CHECK64: StructDecl=simple:[[@LINE+2]]:8 (Definition) [type=basic::simple] [typekind=Record] [sizeof=48] [alignof=8]
-// CHECK32: StructDecl=simple:[[@LINE+1]]:8 (Definition) [type=basic::simple] [typekind=Record] [sizeof=36] [alignof=4]
+// CHECK64: StructDecl=simple:[[@LINE+2]]:8 (Definition) (needs cassign) (needs massign) (needs dtor) [type=basic::simple] [typekind=Record] [sizeof=48] [alignof=8]
+// CHECK32: StructDecl=simple:[[@LINE+1]]:8 (Definition) (needs cassign) (needs massign) (needs dtor) [type=basic::simple] [typekind=Record] [sizeof=36] [alignof=4]
 struct simple {
   int a;
   char b;
@@ -211,21 +211,21 @@ class B {
 
 namespace Sizes {
 
-// CHECK64: StructDecl=A:[[@LINE+2]]:8 (Definition) [type=Sizes::A] [typekind=Record] [sizeof=8] [alignof=4]
-// CHECK32: StructDecl=A:[[@LINE+1]]:8 (Definition) [type=Sizes::A] [typekind=Record] [sizeof=8] [alignof=4]
+// CHECK64: StructDecl=A:[[@LINE+2]]:8 (Definition) (needs cassign) (needs massign) [type=Sizes::A] [typekind=Record] [sizeof=8] [alignof=4]
+// CHECK32: StructDecl=A:[[@LINE+1]]:8 (Definition) (needs cassign) (needs massign) [type=Sizes::A] [typekind=Record] [sizeof=8] [alignof=4]
 struct A {
   int a;
   char b;
 };
 
-// CHECK64: StructDecl=B:[[@LINE+2]]:8 (Definition) [type=Sizes::B] [typekind=Record] [sizeof=12] [alignof=4]
-// CHECK32: StructDecl=B:[[@LINE+1]]:8 (Definition) [type=Sizes::B] [typekind=Record] [sizeof=12] [alignof=4]
+// CHECK64: StructDecl=B:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::B] [typekind=Record] [sizeof=12] [alignof=4]
+// CHECK32: StructDecl=B:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::B] [typekind=Record] [sizeof=12] [alignof=4]
 struct B : A {
   char c;
 };
 
-// CHECK64: StructDecl=C:[[@LINE+2]]:8 (Definition) [type=Sizes::C] [typekind=Record] [sizeof=8] [alignof=4]
-// CHECK32: StructDecl=C:[[@LINE+1]]:8 (Definition) [type=Sizes::C] [typekind=Record] [sizeof=8] [alignof=4]
+// CHECK64: StructDecl=C:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::C] [typekind=Record] [sizeof=8] [alignof=4]
+// CHECK32: StructDecl=C:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::C] [typekind=Record] [sizeof=8] [alignof=4]
 struct C {
 // Make fields private so C won't be a POD type.
 private:
@@ -233,32 +233,32 @@ private:
   char b;
 };
 
-// CHECK64: StructDecl=D:[[@LINE+2]]:8 (Definition) [type=Sizes::D] [typekind=Record] [sizeof=8] [alignof=4]
-// CHECK32: StructDecl=D:[[@LINE+1]]:8 (Definition) [type=Sizes::D] [typekind=Record] [sizeof=8] [alignof=4]
+// CHECK64: StructDecl=D:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::D] [typekind=Record] [sizeof=8] [alignof=4]
+// CHECK32: StructDecl=D:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::D] [typekind=Record] [sizeof=8] [alignof=4]
 struct D : C {
   char c;
 };
 
-// CHECK64: StructDecl=E:[[@LINE+2]]:32 (Definition) [type=Sizes::E] [typekind=Record] [sizeof=5] [alignof=1]
-// CHECK32: StructDecl=E:[[@LINE+1]]:32 (Definition) [type=Sizes::E] [typekind=Record] [sizeof=5] [alignof=1]
+// CHECK64: StructDecl=E:[[@LINE+2]]:32 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::E] [typekind=Record] [sizeof=5] [alignof=1]
+// CHECK32: StructDecl=E:[[@LINE+1]]:32 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::E] [typekind=Record] [sizeof=5] [alignof=1]
 struct __attribute__((packed)) E {
   char b;
   int a;
 };
 
-// CHECK64: StructDecl=F:[[@LINE+2]]:32 (Definition) [type=Sizes::F] [typekind=Record] [sizeof=6] [alignof=1]
-// CHECK32: StructDecl=F:[[@LINE+1]]:32 (Definition) [type=Sizes::F] [typekind=Record] [sizeof=6] [alignof=1]
+// CHECK64: StructDecl=F:[[@LINE+2]]:32 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::F] [typekind=Record] [sizeof=6] [alignof=1]
+// CHECK32: StructDecl=F:[[@LINE+1]]:32 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::F] [typekind=Record] [sizeof=6] [alignof=1]
 struct __attribute__((packed)) F : E {
   char d;
 };
 
 struct G { G(); };
-// CHECK64: StructDecl=H:[[@LINE+2]]:8 (Definition) [type=Sizes::H] [typekind=Record] [sizeof=1] [alignof=1]
-// CHECK32: StructDecl=H:[[@LINE+1]]:8 (Definition) [type=Sizes::H] [typekind=Record] [sizeof=1] [alignof=1]
+// CHECK64: StructDecl=H:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::H] [typekind=Record] [sizeof=1] [alignof=1]
+// CHECK32: StructDecl=H:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Sizes::H] [typekind=Record] [sizeof=1] [alignof=1]
 struct H : G { };
 
-// CHECK64: StructDecl=I:[[@LINE+2]]:8 (Definition) [type=Sizes::I] [typekind=Record] [sizeof=5] [alignof=1]
-// CHECK32: StructDecl=I:[[@LINE+1]]:8 (Definition) [type=Sizes::I] [typekind=Record] [sizeof=5] [alignof=1]
+// CHECK64: StructDecl=I:[[@LINE+2]]:8 (Definition) (needs cassign) (needs massign) [type=Sizes::I] [typekind=Record] [sizeof=5] [alignof=1]
+// CHECK32: StructDecl=I:[[@LINE+1]]:8 (Definition) (needs cassign) (needs massign) [type=Sizes::I] [typekind=Record] [sizeof=5] [alignof=1]
 struct I {
   char b;
   int a;
@@ -275,8 +275,8 @@ class C : virtual A { int c; };
 struct D : virtual B { };
 struct E : C, virtual D { };
 class F : virtual E { };
-// CHECK64: StructDecl=G:[[@LINE+2]]:8 (Definition) [type=Test1::G] [typekind=Record] [sizeof=24] [alignof=8]
-// CHECK32: StructDecl=G:[[@LINE+1]]:8 (Definition) [type=Test1::G] [typekind=Record] [sizeof=16] [alignof=4]
+// CHECK64: StructDecl=G:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) [type=Test1::G] [typekind=Record] [sizeof=24] [alignof=8]
+// CHECK32: StructDecl=G:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) [type=Test1::G] [typekind=Record] [sizeof=16] [alignof=4]
 struct G : virtual E, F { };
 
 }
@@ -291,8 +291,8 @@ struct D : virtual A { };
 struct E : virtual B, D { };
 struct F : E, virtual C { };
 struct G : virtual F, A { };
-// CHECK64: StructDecl=H:[[@LINE+2]]:8 (Definition) [type=Test2::H] [typekind=Record] [sizeof=24] [alignof=8]
-// CHECK32: StructDecl=H:[[@LINE+1]]:8 (Definition) [type=Test2::H] [typekind=Record] [sizeof=12] [alignof=4]
+// CHECK64: StructDecl=H:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Test2::H] [typekind=Record] [sizeof=24] [alignof=8]
+// CHECK32: StructDecl=H:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=Test2::H] [typekind=Record] [sizeof=12] [alignof=4]
 struct H { G g; };
 
 }
@@ -395,8 +395,8 @@ void c;
 
 plopplop;
 
-// CHECK64: StructDecl=lastValid:[[@LINE+2]]:8 (Definition) [type=CrashTest::lastValid] [typekind=Record] [sizeof=1] [alignof=1]
-// CHECK32: StructDecl=lastValid:[[@LINE+1]]:8 (Definition) [type=CrashTest::lastValid] [typekind=Record] [sizeof=1] [alignof=1]
+// CHECK64: StructDecl=lastValid:[[@LINE+2]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=CrashTest::lastValid] [typekind=Record] [sizeof=1] [alignof=1]
+// CHECK32: StructDecl=lastValid:[[@LINE+1]]:8 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) [type=CrashTest::lastValid] [typekind=Record] [sizeof=1] [alignof=1]
 struct lastValid {
 };
 

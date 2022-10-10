@@ -4290,6 +4290,75 @@ CINDEX_LINKAGE unsigned clang_CXXMethod_isVirtual(CXCursor C);
 CINDEX_LINKAGE unsigned clang_CXXRecord_isAbstract(CXCursor C);
 
 /**
+ * Returns true if a default copy constructor for this class or struct
+ * would be deleted.
+ * If this cursor does not refer to a class or struct, returns false.
+ */
+CINDEX_LINKAGE unsigned
+clang_CXXRecord_defaultedCopyConstructorIsDeleted(CXCursor C);
+
+/**
+ * Returns true if a default copy constructor for this class or struct
+ * would be deleted.
+ * If this cursor does not refer to a class or struct, returns false.
+ */
+CINDEX_LINKAGE unsigned
+clang_CXXRecord_defaultedMoveConstructorIsDeleted(CXCursor C);
+
+/**
+ * Returns true if a default destructor for this class or struct
+ * would be deleted.
+ * If this cursor does not refer to a class or struct, returns false.
+ */
+CINDEX_LINKAGE unsigned
+clang_CXXRecord_defaultedDestructorIsDeleted(CXCursor C);
+
+/**
+ * Returns true if the class requires a default constructor to be generated for
+ * it implicitly. If this cursor does not refer to a class or struct, returns
+ * false.
+ */
+CINDEX_LINKAGE unsigned
+clang_CXXRecord_needsImplicitDefaultConstructor(CXCursor C);
+
+/**
+ * Returns true if the class requires a copy constructor to be generated for it
+ * implicitly. If this cursor does not refer to a class or struct, returns
+ * false.
+ */
+CINDEX_LINKAGE unsigned
+clang_CXXRecord_needsImplicitCopyConstructor(CXCursor C);
+
+/**
+ * Returns true if the class requires a copy assignment operator to be generated
+ * for it implicitly. If this cursor does not refer to a class or struct,
+ * returns false.
+ */
+CINDEX_LINKAGE unsigned clang_CXXRecord_needsImplicitCopyAssignment(CXCursor C);
+
+/**
+ * Returns true if the class requires a move constructor to be generated for it
+ * implicitly. If this cursor does not refer to a class or struct, returns
+ * false.
+ */
+CINDEX_LINKAGE unsigned
+clang_CXXRecord_needsImplicitMoveConstructor(CXCursor C);
+
+/**
+ * Returns true if the class requires a move assignment operator to be generated
+ * for it implicitly. If this cursor does not refer to a class or struct,
+ * returns false.
+ */
+CINDEX_LINKAGE unsigned clang_CXXRecord_needsImplicitMoveAssignment(CXCursor C);
+
+/**
+ * Returns true if the class requires a destructor to be generated for it
+ * implicitly. If this cursor does not refer to a class or struct, returns
+ * false.
+ */
+CINDEX_LINKAGE unsigned clang_CXXRecord_needsImplicitDestructor(CXCursor C);
+
+/**
  * Determine if an enum declaration refers to a scoped enum.
  */
 CINDEX_LINKAGE unsigned clang_EnumDecl_isScoped(CXCursor C);

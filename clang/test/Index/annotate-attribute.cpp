@@ -22,7 +22,7 @@ class __attribute__((annotate("works"))) TemplateTest {};
 template <typename T>
 int templateFunction(T value) __attribute__((annotate("works")));
 
-// CHECK: ClassDecl=Test:3:7 (Definition) Extent=[3:1 - 17:2]
+// CHECK: ClassDecl=Test:3:7 (Definition) (needs ctor) (needs cctor) (needs mctor) (needs cassign) (needs massign) (needs dtor) Extent=[3:1 - 17:2]
 // CHECK-NEXT: CXXAccessSpecifier=:4:1 (Definition) Extent=[4:1 - 4:8]
 // CHECK-NEXT: CXXMethod=aMethod:5:51 Extent=[5:3 - 5:60]
 // CHECK-NEXT: attribute(annotate)=spiffy_method Extent=[5:18 - 5:43]

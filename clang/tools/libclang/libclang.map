@@ -410,6 +410,15 @@ LLVM_16 {
     clang_getUnqualifiedType;
     clang_getNonReferenceType;
     clang_CXXMethod_isDeleted;
+    clang_CXXRecord_defaultedCopyConstructorIsDeleted;
+    clang_CXXRecord_defaultedMoveConstructorIsDeleted;
+    clang_CXXRecord_defaultedDestructorIsDeleted;
+    clang_CXXRecord_needsImplicitDefaultConstructor;
+    clang_CXXRecord_needsImplicitCopyConstructor;
+    clang_CXXRecord_needsImplicitCopyAssignment;
+    clang_CXXRecord_needsImplicitMoveConstructor;
+    clang_CXXRecord_needsImplicitMoveAssignment;
+    clang_CXXRecord_needsImplicitDestructor;
 };
 
 # Example of how to add a new symbol version entry.  If you do add a new symbol
